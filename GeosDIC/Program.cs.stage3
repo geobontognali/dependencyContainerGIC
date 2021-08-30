@@ -9,11 +9,9 @@ using System.Linq;
  * stage0 = Base Program without dependency inversion.
  * stage1 = In this version, we inverted the dipendencies and instanciated programmatically instead of using the *new* keyword. The process ist still manual though
  * stage2 = Here I have the first dependency instanciator (called serviceprovider in .NET Core). It is possible to instanciate objects and dependencies are injected automatically (no recursion yet)
- * stage3 = Here I have the dependency instanciator (called serviceprovider in .NET Core) and the dependency container (DIC). It is possible to instanciate objects and dependencies are injected automatically recursively
  */
 
-// Here I have the dependency instanciator (called serviceprovider in .NET Core) and the dependency container (DIC). It is possible to instanciate objects and dependencies are injected automatically recursively. 
-// also, further parameters can be provided as a list
+// Here I have the dependency instanciator (called serviceprovider in .NET Core) and the dependency container (DIC). It is possible to instanciate objects and dependencies are injected automatically recursively
 
 namespace GeosDIC
 {
@@ -21,8 +19,9 @@ namespace GeosDIC
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Instanciating the Dependency Instanciator and Container...");
             var dependencyContainer = new DependencyContainer();
-            var dependencyInstanciator = new DependencyInstanciator(dependencyContainer); // Create Instanciator, ServiceProvider, ObjectSpawner, whatever you wanna call it 
+            var dependencyInstanciator = new DependencyInstanciator(dependencyContainer); // Create Instanciator (ServiceProvider, Object Spawner, whatever you wanna call it)   
 
             Console.WriteLine("Registering dependencies...");
             dependencyContainer.AddDependency<Car>();
@@ -30,19 +29,11 @@ namespace GeosDIC
             dependencyContainer.AddDependency<Heater>();
             dependencyContainer.AddDependency<CD>();
 
+            Console.WriteLine("Instanciating the Car object and auto-injecting dependencies...");
+            Console.WriteLine("");
+            dependencyInstanciator.Instanciate<Car>(); // This spawns the car object and injects its dependencies automatically
 
-            Console.WriteLine("Instanciating the Car object and auto-injecting dependencies..."); Console.WriteLine("");
-            dependencyInstanciator.Instanciate<Car>(
-                new List<object> { "BMW" })
-                ; // This spawns the car object and injects its dependencies and the parameters automatically
-
-            Console.WriteLine(""); Console.WriteLine("");
-
-            dependencyInstanciator.Instanciate<Car>(
-                new List<object> { "Audi" }
-                ); // This spawns the car object and injects its dependencies and the parameters automatically
-
-            Console.ReadLine();
+            Console.WriteLine("");
         }
     }
 
@@ -72,12 +63,10 @@ namespace GeosDIC
     public class DependencyInstanciator
     {
         private DependencyContainer dependencyContainer;
-        private List<object> extraParameters;
 
         public DependencyInstanciator(DependencyContainer dependencyContainer)
         {
             this.dependencyContainer = dependencyContainer;
-            this.extraParameters = new List<object>();
         }
 
         // Returns the instanciated object type given
@@ -99,11 +88,6 @@ namespace GeosDIC
                     {
                         instanciatedConstructorParameters.Add(Instanciate(dependency));
                     }
-                    else // meaning there are parameters not known (not registered in the DIC)
-                    {
-                        // adds those to the list of instanciated objects
-                        instanciatedConstructorParameters.AddRange(extraParameters);
-                    }
                 }
                 var args = instanciatedConstructorParameters.Cast<object>().ToArray(); // Convert the object list to an array, used next in this format
                 return Activator.CreateInstance(dependencyType, args); // Instanciate the wished class with the parameters (the dependencies)
@@ -115,19 +99,10 @@ namespace GeosDIC
             }
         }
 
-        // overload method with generic call (for the first/top call, not really necessary but more efficient)
+        // overloaded method with generic call (for the first/top call, not really necessary but more efficient)
         public T Instanciate<T>()
         {
             return (T)Instanciate(typeof(T));
-        }
-
-        // overlaod method with an args list of further parameters beyond dependencies
-        public T Instanciate<T>(List<object> args)
-        {
-            this.extraParameters = args;
-            var obj = (T)Instanciate(typeof(T));
-            this.extraParameters = new List<object>(); // Clears the extra parameters (should be  an effimeral field)
-            return obj;
         }
     }
 
@@ -142,15 +117,12 @@ namespace GeosDIC
 
         public Guid carID { get; private set; }
 
-        private string carName;
-
-        public Car(Stereo stereo, Heater heater, String carName)
+        public Car(Stereo stereo, Heater heater)
         {
             carID = Guid.NewGuid();
-            this.carName = carName;
             this.stereo = stereo;
             this.heater = heater;
-            Console.WriteLine($"Car created. Serial Nr: #{ carID } - Car Name: { carName }");
+            Console.WriteLine($"Car created. Serial Nr: #{ carID }");
             Console.WriteLine($"and the Stereo #{ this.stereo.stereoID } and the Heater #{ this.heater.heaterID } where added.");
         }
     }
