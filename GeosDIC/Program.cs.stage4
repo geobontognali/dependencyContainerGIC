@@ -13,7 +13,7 @@ using System.Linq;
  * stage4 = Same as stage 3, but now further parameters can be provided as a list
  */
 
-// Here i have all the functionalities plus I can spawn Singletons or Transients (so far only pseudo-code implemented as comment)
+// 
 
 namespace GeosDIC
 {
@@ -61,22 +61,11 @@ namespace GeosDIC
         {
             dependencies.Add(typeof(T));
         }
-
         // Gets dependencies from the container. In actuality it checks if the given type is registered as dependency, if not return a null object.
         public Type GetDependency(Type dependency)
         {
             return dependencies.Find(x => x.Name == dependency.Name);
         }
-
-        // Add transient
-        // - what is done right now basically
-        // -> already solved
-
-        // Adding singleton
-        // - those are instanciated only once and is used for every parent
-        // -> the dependency list is a multidimensional list with the true/false option isSingleton.
-        // -> if its a singleton it gets istanciated straight away and stored in a dedicated list.
-        // -> the instanciator dont instanciate if its a singleton, it takes the object itself.
     }
 
     // Automatically instanciate objects and injects dependency. Only the parent object needs to be given.
