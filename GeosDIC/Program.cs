@@ -3,6 +3,8 @@
 /*
  * My own implementation of the C# dependecy injector container. Trying to get a deeper understanding of it functioning.
  */
+
+
 namespace GeosDIC
 {
     class Program
@@ -11,24 +13,32 @@ namespace GeosDIC
         {
             Console.WriteLine("Program Started");
 
-
+            Car car = new Car();
         }
     }
 
-
+    // In this basic version, Car has a dependency on Stereo. 
     class Car
     {
+        int carId;
         public Car()
         {
-            Wheel
+            carId = new Random().Next();
+            Console.WriteLine($"Car #{ carId } instanciated.");
+            var stereo = new Stereo("Sony", 18);
         }
     }
 
-    class Wheel
+    class Stereo
     {
-        public Wheel()
-        {
+        public string model { get; }
+        public int wattage { get; }
 
+        public Stereo(string model, int wattage)
+        {
+            this.model = model;
+            this.wattage = wattage;
+            Console.WriteLine($"Stereo { this.model } with { this.wattage } Watts instanciated.");
         }
     }
 }
