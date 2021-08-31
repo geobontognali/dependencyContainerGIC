@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeosDIC", "GeosDIC\GeosDIC.csproj", "{F8016B57-DD28-4A89-ADDB-F7E3A7185654}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIC", "GIC\GIC.csproj", "{A68B0983-BD14-4E4C-9247-D33BF32FB7E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F8016B57-DD28-4A89-ADDB-F7E3A7185654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8016B57-DD28-4A89-ADDB-F7E3A7185654}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8016B57-DD28-4A89-ADDB-F7E3A7185654}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8016B57-DD28-4A89-ADDB-F7E3A7185654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A68B0983-BD14-4E4C-9247-D33BF32FB7E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A68B0983-BD14-4E4C-9247-D33BF32FB7E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A68B0983-BD14-4E4C-9247-D33BF32FB7E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A68B0983-BD14-4E4C-9247-D33BF32FB7E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B6391FEF-CB0B-4678-92F4-2C508EEDA0B1}
+		SolutionGuid = {E056F1DD-A406-4199-93C6-9601462A8ACB}
 	EndGlobalSection
 EndGlobal
