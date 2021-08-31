@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GDIC
+namespace GIC_Library
 {
     // Automatically instanciate objects and injects dependency. Only the parent object needs to be given.
     public class DependencyInstanciator

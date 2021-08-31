@@ -1,4 +1,5 @@
 ﻿using System;
+using GIC_Library;
 
 /*
  * My own implementation of the .NET Core dependecy injector container. Trying to get a deeper understanding of it functioning.

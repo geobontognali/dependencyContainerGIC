@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GDIC
+namespace GIC_Library
 {
     // The dependency container lists the registered dependencies. The list is used to differentiate between dependencies and "normal" constructor Parameter at the moment of creation.
     public class DependencyContainer
